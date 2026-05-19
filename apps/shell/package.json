@@ -1,0 +1,47 @@
+{
+    "name": "@feedflow/shell",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev -p 3000",
+        "build": "next build",
+        "start": "next start -p 3000",
+        "lint": "next lint",
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "next": "15.3.9",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "@feedflow/types": "workspace:*",
+        "@feedflow/ui": "workspace:*",
+        "@feedflow/auth": "workspace:*",
+        "@module-federation/nextjs-mf": "^8.4.7",
+        "@tanstack/react-query": "^5.75.5",
+        "@tanstack/react-query-devtools": "^5.75.5",
+        "next-themes": "^0.4.6",
+        "graphql": "^16.8.1",
+        "graphql-yoga": "^5.10.4",
+        "@graphql-tools/schema": "^10.0.3",
+        "geist": "^1.4.2",
+        "lucide-react": "^0.511.0",
+        "clsx": "^2.1.1",
+        "tailwind-merge": "^3.3.0",
+        "framer-motion": "^12.5.0",
+        "zustand": "^5.0.4",
+        "jotai": "^2.10.3",
+        "@sentry/nextjs": "^9.14.0",
+        "posthog-js": "^1.240.6"
+    },
+    "devDependencies": {
+        "@types/node": "^22.15.18",
+        "@types/react": "^19.1.4",
+        "@types/react-dom": "^19.1.5",
+        "typescript": "^5.8.3",
+        "tailwindcss": "^3.4.17",
+        "autoprefixer": "^10.4.21",
+        "postcss": "^8.5.3",
+        "eslint": "^9.26.0",
+        "eslint-config-next": "15.3.9"
+    }
+}

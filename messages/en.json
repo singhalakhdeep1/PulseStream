@@ -1,0 +1,46 @@
+{
+    "common": {
+        "loading": "Loading…",
+        "error": "Something went wrong",
+        "retry": "Retry",
+        "cancel": "Cancel",
+        "save": "Save",
+        "delete": "Delete",
+        "search": "Search"
+    },
+    "feed": {
+        "empty": "Your feed is empty",
+        "emptyHint": "Follow people to see their posts here",
+        "caughtUp": "You're all caught up!",
+        "whatsHappening": "What's happening?",
+        "createPost": "Create post",
+        "post": "Post",
+        "reply": "Reply",
+        "repost": "Repost",
+        "like": "Like",
+        "share": "Share",
+        "bookmark": "Bookmark",
+        "imageLimit": "Add images (max 4)",
+        "dropImages": "Drop to add images",
+        "imageRejected": "Only images up to 5 MB are allowed.",
+        "postSuccess": "Post published!",
+        "postError": "Failed to publish post. Try again."
+    },
+    "nav": {
+        "home": "Home",
+        "explore": "Explore",
+        "notifications": "Notifications",
+        "messages": "Messages",
+        "bookmarks": "Bookmarks",
+        "profile": "Profile",
+        "settings": "Settings"
+    },
+    "auth": {
+        "signIn": "Sign In",
+        "signUp": "Sign Up",
+        "signOut": "Sign Out",
+        "email": "Email",
+        "password": "Password",
+        "forgotPassword": "Forgot password?"
+    }
+}
