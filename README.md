@@ -1,10 +1,6 @@
 # FeedFlow — Real-Time Social Feed Platform
 
-> FAANG-grade social feed built for 10M+ users. Fan-out-on-write feed algorithm with Redis pre-computed feeds, virtual-DOM infinite scroll, and real-time WebSocket presence.
-
-## Resume Bullet
-
-> _"Built fan-out-on-write feed algorithm with Redis pre-computed feeds per user — designed for <50ms read latency at scale; virtual DOM infinite scroll (react-window) rendering 10,000+ posts with zero jank"_
+A social feed platform built for 10M+ users with fan-out-on-write feed algorithm, Redis pre-computed feeds, virtual-DOM infinite scroll, and real-time WebSocket presence.
 
 ---
 
@@ -154,3 +150,9 @@ Key tables:
 | Time to First Byte | <100ms              |
 | Lighthouse Score   | >90                 |
 | Concurrent users   | 10M+ (Redis-backed) |
+
+---
+
+## 📝 License
+
+Proprietary - All rights reserved.
