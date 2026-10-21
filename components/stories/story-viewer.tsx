@@ -16,7 +16,7 @@ export function StoryViewer({ stories, initialIndex = 0, onClose }: Props) {
   const [current, setCurrent] = useState(initialIndex);
   const [progress, setProgress] = useState(0);
   const [paused, setPaused] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const DURATION = 5000;
 
   const story = stories[current];
@@ -34,7 +34,7 @@ export function StoryViewer({ stories, initialIndex = 0, onClose }: Props) {
         return p + (100 / (DURATION / 100));
       });
     }, 100);
-    return () => clearInterval(intervalRef.current);
+    return () => { if (intervalRef.current !== null) clearInterval(intervalRef.current); };
   }, [current, paused, stories.length]);
 
   if (!story) return null;
@@ -61,7 +61,7 @@ export function StoryViewer({ stories, initialIndex = 0, onClose }: Props) {
             <AvatarFallback className="text-xs">{getInitials(story.author?.username ?? "")}</AvatarFallback>
           </Avatar>
           <span className="text-white text-sm font-semibold drop-shadow">@{story.author?.username}</span>
-          <span className="text-white/70 text-xs">{formatRelativeTime(new Date(story.created_at))}</span>
+          <span className="text-white/70 text-xs">{formatRelativeTime(story.created_at)}</span>
           <div className="flex-1" />
           <button onClick={onClose} className="text-white">
             <X className="w-5 h-5" />

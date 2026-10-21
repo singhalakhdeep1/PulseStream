@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { resend, FROM_EMAIL } from "@/lib/email/resend";
+import { getResend, FROM_EMAIL } from "@/lib/email/resend";
 import { welcomeEmail } from "@/lib/email/templates";
 import { APP_URL } from "@/lib/constants";
 
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
   const { subject, html, text } = welcomeEmail({ username, loginUrl: `${APP_URL}/login` });
 
-  await resend.emails.send({
+  await getResend().emails.send({
     from: FROM_EMAIL,
     to: user.email!,
     subject,

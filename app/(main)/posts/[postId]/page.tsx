@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         .eq("id", postId)
         .single();
     if (!post) return { title: "Post not found" };
-    const username = (post.author as { username: string }).username;
+    const username = (post.author as unknown as { username: string }).username;
     return {
         title: `@${username}: ${(post.content as string).slice(0, 60)}`,
     };

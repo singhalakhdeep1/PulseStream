@@ -1,13 +1,16 @@
 import Stripe from "stripe";
 
-if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error("STRIPE_SECRET_KEY is not set");
+let _stripe: Stripe | null = null;
+export function getStripe(): Stripe {
+    if (!_stripe) {
+        if (!process.env.STRIPE_SECRET_KEY) throw new Error("STRIPE_SECRET_KEY is not set");
+        _stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+            apiVersion: "2025-02-24.acacia",
+            typescript: true,
+        });
+    }
+    return _stripe;
 }
-
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2025-04-30.basil",
-    typescript: true,
-});
 
 export const STRIPE_PLANS = {
     pro_monthly: process.env.STRIPE_PRO_MONTHLY_PRICE_ID!,

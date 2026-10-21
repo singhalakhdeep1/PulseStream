@@ -26,7 +26,7 @@ export function CreatePostDialog({ profile }: Props) {
     const remaining = MAX_POST_LENGTH - content.length;
     const overLimit = remaining < 0;
 
-    const onDrop = useCallback((accepted: File[], rejected: File[]) => {
+    const onDrop = useCallback((accepted: File[], rejected: unknown[]) => {
         if (rejected.length > 0) {
             toast.error("Some files were rejected. Only images up to 5 MB are allowed.");
         }

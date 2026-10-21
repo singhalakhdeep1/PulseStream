@@ -53,7 +53,7 @@ export function ChatWindow({ conversationId, currentUserId, otherUsername, other
                             <div className={`max-w-xs rounded-2xl px-4 py-2 text-sm ${isMe ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"}`}>
                                 {msg.content}
                                 <div className={`text-xs mt-1 ${isMe ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-                                    {formatRelativeTime(new Date(msg.created_at))}
+                                    {formatRelativeTime(msg.created_at)}
                                 </div>
                             </div>
                         </div>

@@ -6,14 +6,17 @@ export async function GET(req: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+    const { data: followingData } = await supabase
+        .from("follows")
+        .select("following_id")
+        .eq("follower_id", user.id);
+
+    const followingIds = (followingData ?? []).map((f: { following_id: string }) => f.following_id);
+
     const { data, error } = await supabase
         .from("stories")
         .select("*, author:profiles(id, username, avatar_url)")
-        .in("author_id", supabase
-            .from("follows")
-            .select("following_id")
-            .eq("follower_id", user.id)
-        )
+        .in("author_id", followingIds)
         .gt("expires_at", new Date().toISOString())
         .order("created_at", { ascending: false });
 

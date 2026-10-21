@@ -33,7 +33,7 @@ export function sanitizeHtml(dirty: string): string {
             node.setAttribute("rel", "noopener noreferrer");
         }
     });
-    const clean = DOMPurify.sanitize(dirty, POST_CONFIG) as string;
+    const clean = DOMPurify.sanitize(dirty, POST_CONFIG as Parameters<typeof DOMPurify.sanitize>[1]) as string;
     DOMPurify.removeHook("afterSanitizeAttributes");
     return clean;
 }
@@ -46,5 +46,5 @@ export function stripHtml(dirty: string): string {
     if (typeof window === "undefined") {
         return dirty.replace(/<[^>]*>/g, "");
     }
-    return DOMPurify.sanitize(dirty, PLAIN_CONFIG) as string;
+    return DOMPurify.sanitize(dirty, PLAIN_CONFIG as Parameters<typeof DOMPurify.sanitize>[1]) as string;
 }

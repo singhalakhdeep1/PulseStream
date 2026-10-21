@@ -1,4 +1,4 @@
-import { redis } from "./client";
+import { getRedis } from "./client";
 import { FEED_PAGE_SIZE } from "@/lib/constants";
 
 const FEED_TTL = 300; // 5 minutes
@@ -9,7 +9,7 @@ export function feedKey(userId: string) {
 
 export async function getFeedFromCache(userId: string, cursor?: string): Promise<string[] | null> {
     const key = feedKey(userId);
-    const raw = await redis.get<string[]>(key);
+    const raw = await getRedis().get<string[]>(key);
     if (!raw) return null;
     if (!cursor) return raw.slice(0, FEED_PAGE_SIZE);
     const idx = raw.indexOf(cursor);
@@ -18,9 +18,9 @@ export async function getFeedFromCache(userId: string, cursor?: string): Promise
 }
 
 export async function cacheFeed(userId: string, postIds: string[]): Promise<void> {
-    await redis.setex(feedKey(userId), FEED_TTL, postIds);
+    await getRedis().setex(feedKey(userId), FEED_TTL, postIds);
 }
 
 export async function invalidateFeed(userId: string): Promise<void> {
-    await redis.del(feedKey(userId));
+    await getRedis().del(feedKey(userId));
 }

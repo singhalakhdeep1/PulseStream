@@ -131,3 +131,19 @@ export function createPostLoader(db: SupabaseClient) {
         return ids.map(id => byId.get(id) ?? new Error(`Post ${id} not found`));
     });
 }
+
+// ── Comment Loader ─────────────────────────────────────────────────────────────
+
+export function createCommentLoader(db: SupabaseClient) {
+    return new DataLoader<string, Record<string, unknown>>(async (ids) => {
+        const { data, error } = await db
+            .from("comments")
+            .select("id, content, author_id, post_id, likes_count, created_at")
+            .in("id", ids as string[]);
+
+        if (error) return ids.map(() => new Error(error.message));
+
+        const byId = new Map((data ?? []).map((row: any) => [row.id, row]));
+        return ids.map(id => byId.get(id) ?? new Error(`Comment ${id} not found`));
+    });
+}

@@ -110,7 +110,10 @@ const PostType = {
         ctx.loaders.user.loadSingle(post.author_id),
     imageUrls: (post: any) => post.image_urls ?? [],
     hashtags: (post: any) => post.hashtags ?? [],
-    mentionedUsers: () => [],  // TODO: implement mentions
+    mentionedUsers: async (post: any, _: unknown, ctx: GraphQLContext) => {
+        if (!post.mentioned_user_ids?.length) return [];
+        return Promise.all(post.mentioned_user_ids.map((id: string) => ctx.loaders.user.loadSingle(id)));
+    },
     likesCount: (post: any) => post.likes_count ?? 0,
     commentsCount: (post: any) => post.comments_count ?? 0,
     repostsCount: (post: any) => post.reposts_count ?? 0,
@@ -185,7 +188,8 @@ const CommentType = {
 const NotificationType = {
     actor: (n: any, _: unknown, ctx: GraphQLContext) => ctx.loaders.user.loadSingle(n.actor_id),
     post: (n: any, _: unknown, ctx: GraphQLContext) => n.post_id ? ctx.loaders.post.loadSingle(n.post_id) : null,
-    comment: () => null,  // TODO: implement comment loader
+    comment: (n: any, _: unknown, ctx: GraphQLContext) =>
+        n.comment_id ? ctx.loaders.comment.loadSingle(n.comment_id) : null,
     isRead: (n: any) => n.is_read,
     createdAt: (n: any) => n.created_at,
 };

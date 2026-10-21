@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+function getOpenAI() {
+    return new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+}
 
 export async function POST(request: NextRequest) {
     const supabase = await createClient();
@@ -18,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     // AI content moderation
     try {
-        const modRes = await openai.moderations.create({ input: content });
+        const modRes = await getOpenAI().moderations.create({ input: content });
         const result = modRes.results[0];
         if (result.flagged) {
             return NextResponse.json(

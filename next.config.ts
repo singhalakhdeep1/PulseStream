@@ -1,28 +1,5 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
-import withPWA from "next-pwa";
-
-const withPWAConfig = withPWA({
-    dest: "public",
-    register: true,
-    skipWaiting: true,
-    disable: process.env.NODE_ENV === "development",
-    runtimeCaching: [
-        {
-            urlPattern: /^https:\/\/imagedelivery\.net\/.*/i,
-            handler: "CacheFirst",
-            options: {
-                cacheName: "cf-images",
-                expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 7 },
-            },
-        },
-        {
-            urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/.*/i,
-            handler: "NetworkFirst",
-            options: { cacheName: "api", networkTimeoutSeconds: 10 },
-        },
-    ],
-});
 
 /**
  * Content Security Policy — OWASP A05:2021
@@ -72,11 +49,11 @@ const nextConfig: NextConfig = {
     },
 };
 
-export default withSentryConfig(withPWAConfig(nextConfig), {
+export default withSentryConfig(nextConfig, {
     silent: true,
     org: process.env.SENTRY_ORG,
     project: process.env.SENTRY_PROJECT,
     widenClientFileUpload: true,
-    hideSourceMaps: true,
+    sourcemaps: { disable: true },
     disableLogger: true,
 });

@@ -41,7 +41,7 @@ export function ConversationList({ currentUserId }: Props) {
                         <div className="text-xs text-muted-foreground truncate">{c.last_message ?? "No messages yet"}</div>
                     </div>
                     {c.last_message_at && (
-                        <span className="text-xs text-muted-foreground shrink-0">{formatRelativeTime(new Date(c.last_message_at))}</span>
+                        <span className="text-xs text-muted-foreground shrink-0">{formatRelativeTime(c.last_message_at)}</span>
                     )}
                 </button>
             ))}

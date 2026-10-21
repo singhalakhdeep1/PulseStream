@@ -9,7 +9,9 @@ import { Redis } from "@upstash/redis";
  * Used by Docker HEALTHCHECK, k8s probes, uptime monitors.
  */
 
-const redis = Redis.fromEnv();
+function getRedis() {
+    return Redis.fromEnv();
+}
 
 export async function GET() {
     const checks: Record<string, { status: "ok" | "error"; latencyMs: number; error?: string }> = {};
@@ -32,7 +34,7 @@ export async function GET() {
     // Check Redis
     const redisStart = Date.now();
     try {
-        await redis.ping();
+        await getRedis().ping();
         checks.redis = { status: "ok", latencyMs: Date.now() - redisStart };
     } catch (err) {
         checks.redis = {

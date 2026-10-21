@@ -19,5 +19,17 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "lib/anthropic",
+    "lib/cohere",
+    "lib/pinecone",
+    "lib/perplexity",
+    "lib/kafka",
+    "lib/elasticsearch",
+    "lib/services",
+    "**/*.stories.tsx",
+    "**/*.stories.ts",
+    "lib/video"
+  ]
 }

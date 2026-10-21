@@ -8,8 +8,8 @@
 // DataLoaders are REQUEST-SCOPED — a new set is created for each request.
 // This is critical: you must NOT share loaders across requests.
 
-import { createClient } from "@supabase/supabase-js";
-import { createUserLoader, createPostLoader } from "./dataloaders";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { createUserLoader, createPostLoader, createCommentLoader } from "./dataloaders";
 import type { NextRequest } from "next/server";
 
 export interface GraphQLUser {
@@ -20,10 +20,11 @@ export interface GraphQLUser {
 
 export interface GraphQLContext {
     user:     GraphQLUser | null;
-    supabase: ReturnType<typeof createClient>;
+    supabase: SupabaseClient;
     loaders: {
         user: ReturnType<typeof createUserLoader>;
         post: ReturnType<typeof createPostLoader>;
+        comment: ReturnType<typeof createCommentLoader>;
     };
     req: NextRequest;
 }
@@ -71,8 +72,9 @@ export async function createContext(req: NextRequest): Promise<GraphQLContext> {
         user:     graphqlUser,
         supabase,
         loaders: {
-            user: createUserLoader(supabase),
-            post: createPostLoader(supabase),
+            user:    createUserLoader(supabase),
+            post:    createPostLoader(supabase),
+            comment: createCommentLoader(supabase),
         },
         req,
     };

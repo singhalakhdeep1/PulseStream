@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { ConversationList } from "@/components/messages/conversation-list";
 import { ChatWindow } from "@/components/messages/chat-window";
 
-export default async function ConversationPage({ params }: { params: { conversationId: string } }) {
+export default async function ConversationPage({ params }: { params: Promise<{ conversationId: string }> }) {
     const { conversationId } = await params;
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();

@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     const results: Array<{ url: string; id: string }> = [];
 
     for (const file of files) {
-        if (!SUPPORTED_IMAGE_TYPES.includes(file.type)) {
+        if (!SUPPORTED_IMAGE_TYPES.includes(file.type as typeof SUPPORTED_IMAGE_TYPES[number])) {
             return NextResponse.json({ error: `Unsupported type: ${file.type}` }, { status: 400 });
         }
         if (file.size > MAX_FILE_SIZE) {
