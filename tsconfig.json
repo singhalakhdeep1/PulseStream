@@ -30,6 +30,7 @@
     "lib/services",
     "**/*.stories.tsx",
     "**/*.stories.ts",
-    "lib/video"
+    "lib/video",
+    "tests"
   ]
 }
